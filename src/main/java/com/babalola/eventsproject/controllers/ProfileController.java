@@ -4,6 +4,8 @@ import com.babalola.eventsproject.services.ProfileInterfaceImpl;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
+
 
 @RestController
 public class ProfileController {
@@ -25,15 +27,20 @@ public class ProfileController {
         return profileInterface.getName();
     }
 
+    @GetMapping("/payload")
+    public String getPayload() {
+        return profileInterface.getPayload();
+    }
+
 
     @GetMapping("/date")
-    public String getProfileDate(){
+    public Date getProfileDate(){
         return profileInterface.getDate();
     }
 
 
     @GetMapping("/device")
-    public String getProfileDevice(){
-        return profileInterface.getDevice();
+    public String getDescription(){
+        return profileInterface.getDescription();
     }
 }

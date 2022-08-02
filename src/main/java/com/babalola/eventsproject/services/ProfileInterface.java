@@ -1,8 +1,13 @@
 package com.babalola.eventsproject.services;
 
+import java.util.Date;
+
 public interface ProfileInterface {
+
     String getName();
-    String getDevice();
-    String getDate();
+    String getDescription();
+    String getPayload();
+
+    Date getDate();
 
 }
