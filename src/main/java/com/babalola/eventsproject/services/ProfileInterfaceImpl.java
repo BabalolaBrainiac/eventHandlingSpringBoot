@@ -1,4 +1,5 @@
 package com.babalola.eventsproject.services;
+import com.babalola.eventsproject.events.AppEventPublisher;
 import com.babalola.eventsproject.events.GetNameEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
@@ -10,11 +11,12 @@ import java.util.Date;
 @Slf4j
 public class ProfileInterfaceImpl implements ProfileInterface{
 
+
     public ProfileInterfaceImpl(ApplicationEventPublisher applicationEventPublisher) {
         this.applicationEventPublisher = applicationEventPublisher;
     }
+    ApplicationEventPublisher applicationEventPublisher;
 
-    private final ApplicationEventPublisher applicationEventPublisher;
 
     String name;
     String description;
@@ -26,8 +28,8 @@ public class ProfileInterfaceImpl implements ProfileInterface{
         SampleObject sampleObject = new SampleObject("Sample Get Request", "Testing",
                 "Whatever is being sent as request payload", new Date());
 
-        GetNameEvent getNameEvent = new GetNameEvent(sampleObject);
-        applicationEventPublisher.publishEvent(getNameEvent);
+        GetNameEvent getNameEvent = new GetNameEvent(sampleObject, "test", "my desc", "payLoad");
+       applicationEventPublisher.publishEvent(getNameEvent);
         return "This is a sample request event";
     }
     public String getDescription() {
