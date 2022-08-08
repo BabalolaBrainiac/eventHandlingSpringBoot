@@ -1,6 +1,7 @@
 package com.babalola.eventsproject.controllers;
 
 import com.babalola.eventsproject.services.ProfileInterfaceImpl;
+import org.json.JSONException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,6 +26,11 @@ public class ProfileController {
     @GetMapping("/name")
     public String getProfileName(){
         return profileInterface.getName();
+    }
+
+    @GetMapping("/test")
+    public String testApplication() throws JSONException {
+        return profileInterface.testingApplication();
     }
 
     @GetMapping("/payload")

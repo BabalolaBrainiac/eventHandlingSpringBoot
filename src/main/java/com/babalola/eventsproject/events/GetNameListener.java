@@ -1,23 +1,36 @@
 package com.babalola.eventsproject.events;
-import com.babalola.eventsproject.services.SampleObject;
+import com.babalola.eventsproject.services.UrlExtractor;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.context.ApplicationListener;
+import lombok.extern.slf4j.Slf4j;;
+import org.apache.http.HttpEntity;
+import org.springframework.context.event.EventListener;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
-@Component
+import java.io.IOException;
+
+
 @Slf4j
-public class GetNameListener implements ApplicationListener<GetNameEvent> {
+@Component
+@RequiredArgsConstructor
+public class GetNameListener {
 
-    @Override
-    public void onApplicationEvent(GetNameEvent event) {
-        System.out.println(event.getName());
-        System.out.println(event.getDescription());
-        System.out.println(event.getPayLoad());
+    private final EventPublisher eventPublisher;
 
-        //Perform logic to push event properties to webhook;
+    private final UrlExtractor urlExtractor;
 
-        log.info("get name event is being listened to");
+    @Async
+    @EventListener
+    public String handleGetNameEvent(GetNameEvent event) throws IOException {
+        System.out.println(event.getPayload());
+        System.out.println(event.getTitle());
+
+        //send to webhook
+        urlExtractor.sendPostRequest(event.getWebhookUrl(), event.getPayload());
+        return event.getTitle();
+
     }
+
+
+
 }

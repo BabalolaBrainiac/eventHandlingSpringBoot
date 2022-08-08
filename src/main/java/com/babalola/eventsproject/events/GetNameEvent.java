@@ -1,37 +1,21 @@
 package com.babalola.eventsproject.events;
-import org.springframework.context.ApplicationEvent;
-
-public class GetNameEvent extends ApplicationEvent {
-    String name;
-    String description;
-    String payLoad;
-
-    //constructor to create event with all event properties
-    public GetNameEvent(Object event, String name, String description, String payLoad) {
-        super(event);
-        this.name = name;
-        this.description = description;
-        this.payLoad = payLoad;
-    }
-    //Constructor to create event with just the event object
-    public GetNameEvent(Object event) {
-        super(event);
-    }
+import lombok.Value;
+import org.json.JSONObject;
 
 
-    public String getName() {
-        return this.name;
+@Value
+public class GetNameEvent{
+
+    EventEntityDBO getNameEvent;
+
+    public String webhookUrl;
+
+    public JSONObject getPayload() {
+        return getNameEvent.getPayload();
     }
 
-    public String getDescription() {
-        return description;
+    public String getTitle() {
+        return getNameEvent.getTitle();
     }
 
-    public String getPayLoad() {
-        return payLoad;
-    }
-    @Override
-    public String toString() {
-        return super.toString();
-    }
 }

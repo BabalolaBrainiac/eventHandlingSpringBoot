@@ -1,39 +1,80 @@
 package com.babalola.eventsproject.services;
-import com.babalola.eventsproject.events.AppEventPublisher;
-import com.babalola.eventsproject.events.GetNameEvent;
+import com.babalola.eventsproject.events.*;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.stereotype.Service;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.springframework.core.annotation.Order;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import java.util.Date;
 
 @Service
 @Slf4j
+@Component
+@Order(100)
+@RequiredArgsConstructor
 public class ProfileInterfaceImpl implements ProfileInterface{
-
-
-    public ProfileInterfaceImpl(ApplicationEventPublisher applicationEventPublisher) {
-        this.applicationEventPublisher = applicationEventPublisher;
-    }
-    ApplicationEventPublisher applicationEventPublisher;
-
-
     String name;
     String description;
     String payload;
     Date date;
 
-    public String getName() {
+  private final EventPublisher eventPublisher;
 
-        SampleObject sampleObject = new SampleObject("Sample Get Request", "Testing",
-                "Whatever is being sent as request payload", new Date());
 
-        GetNameEvent getNameEvent = new GetNameEvent(sampleObject, "test", "my desc", "payLoad");
-       applicationEventPublisher.publishEvent(getNameEvent);
-        return "This is a sample request event";
+
+    public String getName(GetNameEvent event) {
+        EventEntityDBO eventEntityDBO = null;
+        eventEntityDBO.setTitle("babalola.title.test");
+
+
+        return "Get name event created";
     }
+
+
+    @Async
+    public String testingApplication() throws JSONException {
+        String userAssetRequestId;
+        String userWebhookUrl;
+        JSONArray userAssets = new JSONArray();
+        userAssets.put("ETH: Ethereum");
+        userAssets.put("BNB: Binance Smart Chain");
+        userAssetRequestId = "sampleUser001_2022_13_August";
+        userWebhookUrl = "https://webhook.site/379a2800-4a23-437a-8acc-b3aa25df7eb2";
+
+        JSONObject samplePayload = new JSONObject();
+        samplePayload.put("userId", "sampleUser001");
+        samplePayload.put("ordersCompleted", 40);
+        samplePayload.put("availableAssets", userAssets);
+
+        EventEntityDBO event = new EventEntityDBO(userAssetRequestId, samplePayload);
+        eventPublisher.publishEvent(new GetNameEvent(event, userWebhookUrl));
+        return "event created and published";
+
+
+//        eventEntityDBO.setPayload("My payload");
+//        eventEntityDBO.setTitle("My title");
+//        eventPublisher.publishEvent(eventEntityDBO);
+
+
+    }
+
+    public void test() {
+
+    }
+
+    @Override
+    public String getName() {
+        return null;
+    }
+
+    @Override
     public String getDescription() {
-        return "This is the description of this event";
+        return null;
     }
 
     public String getPayload() {
