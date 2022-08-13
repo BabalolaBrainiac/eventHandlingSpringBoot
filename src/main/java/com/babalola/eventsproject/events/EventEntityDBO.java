@@ -1,7 +1,6 @@
 package com.babalola.eventsproject.events;
 import com.google.gson.JsonObject;
 import lombok.*;
-import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
 
