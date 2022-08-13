@@ -1,10 +1,8 @@
 package com.babalola.eventsproject.controllers;
-
 import com.babalola.eventsproject.services.ProfileInterfaceImpl;
 import org.json.JSONException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.Date;
 
 

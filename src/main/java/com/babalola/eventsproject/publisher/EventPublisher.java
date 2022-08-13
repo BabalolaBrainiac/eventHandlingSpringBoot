@@ -1,4 +1,4 @@
-package com.babalola.eventsproject.events;
+package com.babalola.eventsproject.publisher;
 public interface EventPublisher {
 
     void publishEvent(Object event);

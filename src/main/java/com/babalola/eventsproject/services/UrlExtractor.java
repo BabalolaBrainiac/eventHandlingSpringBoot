@@ -1,4 +1,5 @@
 package com.babalola.eventsproject.services;
+import com.google.gson.JsonObject;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 import java.io.BufferedReader;
@@ -11,7 +12,7 @@ import java.net.URL;
 
 @Service
 public class UrlExtractor {
-    public void sendPostRequest(String webhookUrl, JSONObject payload) throws IOException {
+    public void sendPostRequest(String webhookUrl, JsonObject payload) throws IOException {
             URL url = new URL(webhookUrl);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");

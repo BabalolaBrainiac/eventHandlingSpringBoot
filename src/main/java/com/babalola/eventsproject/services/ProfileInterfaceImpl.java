@@ -1,8 +1,9 @@
 package com.babalola.eventsproject.services;
 import com.babalola.eventsproject.events.*;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,7 +28,7 @@ public class ProfileInterfaceImpl implements ProfileInterface{
 
 
 
-    public String getName(GetNameEvent event) {
+    public String getName(EventEntityDBO event) {
         EventEntityDBO eventEntityDBO = null;
         eventEntityDBO.setTitle("babalola.title.test");
 
@@ -35,25 +36,28 @@ public class ProfileInterfaceImpl implements ProfileInterface{
         return "Get name event created";
     }
 
-
     @Async
     public String testingApplication() throws JSONException {
         String userAssetRequestId;
         String userWebhookUrl;
         JSONArray userAssets = new JSONArray();
+        JsonArray array = new JsonArray();
         userAssets.put("ETH: Ethereum");
         userAssets.put("BNB: Binance Smart Chain");
         userAssetRequestId = "sampleUser001_2022_13_August";
         userWebhookUrl = "https://webhook.site/379a2800-4a23-437a-8acc-b3aa25df7eb2";
 
-        JSONObject samplePayload = new JSONObject();
-        samplePayload.put("userId", "sampleUser001");
-        samplePayload.put("ordersCompleted", 40);
-        samplePayload.put("availableAssets", userAssets);
+        userAssetRequestId = "sampleBinanceAuthentication";
+        JsonObject samplePayload = new JsonObject();
+        samplePayload.addProperty("isAuthComplete", "sampleUser001");
+        samplePayload.addProperty("ordersCompleted", 40);
 
-        EventEntityDBO event = new EventEntityDBO(userAssetRequestId, samplePayload);
-        eventPublisher.publishEvent(new GetNameEvent(event, userWebhookUrl));
-        return "event created and published";
+
+
+        EventEntityDBO event = new EventEntityDBO("testing.new.event.title", samplePayload);
+        eventPublisher.publishEvent(new EventCreator(event, userWebhookUrl));
+
+
 
 
 //        eventEntityDBO.setPayload("My payload");
@@ -61,6 +65,7 @@ public class ProfileInterfaceImpl implements ProfileInterface{
 //        eventPublisher.publishEvent(eventEntityDBO);
 
 
+        return userAssetRequestId;
     }
 
     public void test() {

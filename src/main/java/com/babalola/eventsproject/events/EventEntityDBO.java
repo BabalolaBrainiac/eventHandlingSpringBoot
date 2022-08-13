@@ -1,46 +1,41 @@
 package com.babalola.eventsproject.events;
-import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.google.gson.JsonObject;
 import lombok.*;
 import org.json.JSONObject;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 
 @Data
-@Builder
 @NoArgsConstructor
 @ToString(callSuper = true)
 @Component
+@Builder
 public class EventEntityDBO{
-
     private String title;
-    private JSONObject payload;
-
-    public EventEntityDBO(String title, JSONObject payload) {
+    private JsonObject payload;
+    public EventEntityDBO(String title, JsonObject payload) {
         this.title = title;
         this.payload = payload;
     }
 
-    public EventEntityDBO(EventEntityDBO event) {
+    public EventEntityDBO(String title, Object payload) {
+        this.title = title;
+        this.payload = (JsonObject) payload;
     }
 
     public String getTitle() {
-        return title;
+        return this.title;
     }
 
     public void setTitle(String title) {
         this.title = title;
     }
 
-    public JSONObject getPayload() {
-        return payload;
+    public JsonObject getPayload() {
+        return this.payload;
     }
 
-    public void setPayload(JSONObject payload) {
-        this.payload = payload;
-    }
-
-    public EventEntityDBO(JSONObject payload) {
+    public EventEntityDBO(JsonObject payload) {
         this.payload = payload;
     }
 }
