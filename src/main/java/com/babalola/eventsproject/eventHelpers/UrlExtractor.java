@@ -1,4 +1,4 @@
-package com.babalola.eventsproject.services;
+package com.babalola.eventsproject.eventHelpers;
 import com.google.gson.JsonObject;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;

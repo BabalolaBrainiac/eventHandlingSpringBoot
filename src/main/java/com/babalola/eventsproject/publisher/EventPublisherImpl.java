@@ -1,4 +1,4 @@
-package com.babalola.eventsproject.services;
+package com.babalola.eventsproject.publisher;
 
 
 import lombok.RequiredArgsConstructor;

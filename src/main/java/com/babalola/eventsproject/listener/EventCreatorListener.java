@@ -1,11 +1,10 @@
 package com.babalola.eventsproject.listener;
 import com.babalola.eventsproject.events.EventCreator;
-import com.babalola.eventsproject.services.UrlExtractor;
+import com.babalola.eventsproject.eventHelpers.UrlExtractor;
 import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
